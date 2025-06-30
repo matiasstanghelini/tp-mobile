@@ -1,0 +1,106 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>HABITS</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Mis Hábitos</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <!-- Botón para mostrar/ocultar el formulario de nuevo hábito -->
+  <div class="ion-text-center ion-margin">
+    <ion-button fill="outline" (click)="showAddHabitForm = !showAddHabitForm">
+      <ion-icon slot="start" name="add"></ion-icon>
+      {{ showAddHabitForm ? 'Ocultar formulario' : 'Agregar Nuevo Hábito' }}
+    </ion-button>
+  </div>
+
+  <!-- Formulario para agregar un nuevo hábito (inicialmente oculto) -->
+  <ion-card *ngIf="showAddHabitForm">
+    <ion-card-header>
+      <ion-card-title>Nuevo Hábito</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <form (ngSubmit)="addHabit()" #habitForm="ngForm">
+        <ion-item>
+          <ion-label position="floating">Nombre del hábito</ion-label>
+          <ion-input 
+            type="text" 
+            name="name" 
+            [(ngModel)]="newHabit.name" 
+            required
+            #name="ngModel">
+          </ion-input>
+        </ion-item>
+        <ion-note color="danger" *ngIf="name.invalid && (name.dirty || name.touched)">
+          El nombre es requerido
+        </ion-note>
+
+        <ion-item>
+          <ion-label>Hora de recordatorio</ion-label>
+          <ion-datetime 
+            name="reminderTime" 
+            display-format="h:mm A"
+            picker-format="h:mm A"
+            [(ngModel)]="newHabit.reminderTime"
+            #reminderTime="ngModel">
+          </ion-datetime>
+        </ion-item>
+
+        <div class="ion-margin-top">
+          <ion-button 
+            expand="block" 
+            type="submit" 
+            [disabled]="!habitForm.form.valid"
+            class="ion-margin-end">
+            <ion-icon slot="start" name="checkmark"></ion-icon>
+            Guardar
+          </ion-button>
+          <ion-button 
+            expand="block" 
+            fill="outline" 
+            (click)="showAddHabitForm = false"
+            class="ion-margin-top">
+            <ion-icon slot="start" name="close"></ion-icon>
+            Cancelar
+          </ion-button>
+        </div>
+      </form>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Lista de hábitos existentes -->
+  <ion-list>
+    <ion-list-header>
+      <h2>Mis Hábitos</h2>
+    </ion-list-header>
+
+    <ion-item-sliding *ngFor="let habit of habits">
+      <ion-item>
+        <ion-label>
+          <h2>{{ habit.name }}</h2>
+          <p *ngIf="habit.reminderTime">Recordatorio: {{ habit.reminderTime | date:'shortTime' }}</p>
+        </ion-label>
+        <ion-note slot="end" color="primary">
+          <ion-icon name="notifications" *ngIf="habit.reminderTime"></ion-icon>
+        </ion-note>
+      </ion-item>
+      
+      <ion-item-options side="end">
+        <ion-item-option color="danger" (click)="deleteHabit(habit.id)">
+          <ion-icon slot="icon-only" name="trash"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="scrollToTop()">
+      <ion-icon name="arrow-up"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>
