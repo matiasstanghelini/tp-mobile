@@ -32,6 +32,139 @@
  * https://ionicframework.com/docs/theming/dark-mode
  */
 
+/* Fuentes de Google */
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import '@ionic/angular/css/palettes/dark.system.css';
+
+/* Estilos globales */
+:root {
+  --ion-background-color: #000000;
+  --ion-background-color-rgb: 0,0,0;
+  
+  --ion-text-color: #ffffff;
+  --ion-text-color-rgb: 255,255,255;
+  
+  --ion-color-step-50: #0d0d0d;
+  --ion-color-step-100: #1a1a1a;
+  --ion-color-step-150: #262626;
+  --ion-color-step-200: #333333;
+  --ion-color-step-250: #404040;
+  --ion-color-step-300: #4d4d4d;
+  --ion-color-step-350: #595959;
+  --ion-color-step-400: #666666;
+  --ion-color-step-450: #737373;
+  --ion-color-step-500: #808080;
+  --ion-color-step-550: #8c8c8c;
+  --ion-color-step-600: #999999;
+  --ion-color-step-650: #a6a6a6;
+  --ion-color-step-700: #b3b3b3;
+  --ion-color-step-750: #bfbfbf;
+  --ion-color-step-800: #cccccc;
+  --ion-color-step-850: #d9d9d9;
+  --ion-color-step-900: #e6e6e6;
+  --ion-color-step-950: #f2f2f2;
+}
+
+/* Establecer el fondo negro en toda la aplicación */
+html, body, ion-app, ion-content {
+  --background: #000000;
+  background: #000000;
+  color: #ffffff;
+}
+
+/* Estilos para el título */
+ion-title {
+  font-family: 'Anton', sans-serif;
+  font-size: 1.8rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #39ff14; 
+}
+
+@keyframes glow {
+  from {
+    text-shadow: 0 0 5px #39ff14, 0 0 10px #39ff14;
+  }
+  to {
+    text-shadow: 0 0 10px #39ff14, 0 0 20px #39ff14, 0 0 30px #39ff14;
+  }
+}
+
+/* Estilos para las tarjetas */
+ion-card {
+  --background: rgba(0, 0, 0, 0.9);
+  --color: #ffffff;
+  margin: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.8);
+  transition: all 0.3s ease;
+}
+
+ion-card:hover {
+  --background: rgba(0, 0, 0, 0.85);
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.9);
+}
+
+/* Estilos para el contenido */
+ion-content {
+  --background: #121212; /* Fondo ligeramente más claro que el negro puro */
+  --color: #ffffff;
+  background: #121212;
+}
+
+/* Fondo de la página */
+html, body {
+  background: #121212;
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+}
+
+/* Estilos para la barra de herramientas */
+ion-toolbar {
+  --background: rgba(0, 0, 0, 0.8);
+  --color: #ffffff;
+  --border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Estilos para los botones */
+ion-button {
+  --background: rgba(0, 0, 0, 0.8);
+  --border-color: rgba(255, 255, 255, 0.2);
+  --border-style: solid;
+  --border-width: 1px;
+  --color: #ffffff;
+  --background-activated: rgba(255, 255, 255, 0.1);
+}
+
+/* Estilos para los inputs */
+ion-input, ion-textarea, ion-select, ion-datetime {
+  --background: rgba(0, 0, 0, 0.5);
+  --color: #ffffff;
+  --placeholder-color: #cccccc;
+  --border-color: rgba(255, 255, 255, 0.2);
+  --border-radius: 8px;
+  --padding-start: 12px;
+  --padding-end: 12px;
+}
+
+/* Estilos para los items de lista */
+ion-item {
+  --background: rgba(0, 0, 0, 0.3);
+  --color: #ffffff;
+  --border-color: rgba(255, 255, 255, 0.1);
+  --padding-start: 16px;
+  --padding-end: 16px;
+  --inner-padding-end: 8px;
+}
+
+/* Estilos para el footer */
+ion-footer {
+  --background: rgba(0, 0, 0, 0.8);
+  --border-color: rgba(255, 255, 255, 0.1);
+}
