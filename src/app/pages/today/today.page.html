@@ -1,0 +1,77 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>HABITS</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-card>
+  <ion-card-header>
+    <ion-card-title>Hoy</ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    <p>Completados: {{ completedCount }}</p>
+    <p>Total: {{ habits.length }}</p>
+  </ion-card-content>
+</ion-card>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Hoy</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-card *ngIf="!hasHabits()">
+    <ion-card-header>
+      <ion-card-title>No hay hábitos para hoy</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>No tienes hábitos programados para hoy. ¡Agrega algunos en la pestaña de Hábitos!</p>
+      <ion-button expand="block" routerLink="/tabs/habits" class="ion-margin-top">
+        <ion-icon slot="start" name="add"></ion-icon>
+        Agregar Hábitos
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-list *ngIf="hasHabits()">
+    <ion-item-group>
+      <ion-item-divider>
+        <ion-label>Hábitos para hoy</ion-label>
+        <ion-note slot="end">{{ today | date:'fullDate' }}</ion-note>
+      </ion-item-divider>
+
+      <ion-item *ngFor="let habit of habits" [class.completed]="isHabitCompleted(habit.id)">
+        <ion-label>
+          <h2>{{ habit.name }}</h2>
+          <p *ngIf="habit.reminderTime">Recordatorio: {{ habit.reminderTime | date:'shortTime' }}</p>
+        </ion-label>
+        <ion-checkbox 
+          slot="end" 
+          [checked]="isHabitCompleted(habit.id)"
+          (ionChange)="toggleHabitCompletion(habit.id, $event.detail.checked)">
+        </ion-checkbox>
+      </ion-item>
+    </ion-item-group>
+
+    <ion-item-group class="ion-margin-top">
+      <ion-item-divider>
+        <ion-label>Completados</ion-label>
+        <ion-note slot="end">{{ completedCount }} de {{ habits.length }}</ion-note>
+      </ion-item-divider>
+      
+      <ion-item *ngFor="let habit of completedHabits">
+        <ion-label>
+          <h2>{{ habit.name }}</h2>
+          <p>Completado hoy a las {{ getCompletionTime(habit.id) | date:'shortTime' }}</p>
+        </ion-label>
+        <ion-icon slot="end" name="checkmark-circle" color="success"></ion-icon>
+      </ion-item>
+    </ion-item-group>
+  </ion-list>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="scrollToTop()">
+      <ion-icon name="arrow-up"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>
