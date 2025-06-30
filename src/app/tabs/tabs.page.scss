@@ -1,1 +1,39 @@
+ion-tab-bar {
+  --background: #292727;
+  --color: #8c8c8c;
+  --color-selected: #3880ff;
+  --padding-top: 8px;
+  --padding-bottom: 12px;
+  height: 60px;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.08);
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
 
+ion-tab-button {
+  --padding-start: 0;
+  --padding-end: 0;
+  --padding-top: 0;
+  --padding-bottom: 0;
+
+  ion-icon {
+    font-size: 24px;
+    margin-bottom: 4px;
+  }
+}
+
+ion-tab-button.tab-selected {
+  ion-icon {
+    transform: scale(1.1);
+    transition: transform 0.2s ease-in-out;
+  }
+}
+
+ion-tabs {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+ion-router-outlet {
+  flex: 1;
+}
