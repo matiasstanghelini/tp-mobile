@@ -19,8 +19,6 @@ import {
   IonCardContent,
   IonItemGroup,
   IonItemDivider,
-  IonFab,
-  IonFabButton,
   ToastController
 } from '@ionic/angular/standalone';
 // Los íconos se importan directamente en el template
@@ -50,7 +48,6 @@ interface HabitCompletion {
     IonHeader, 
     IonTitle, 
     IonToolbar,
-    IonButton,
     IonIcon,
     IonList,
     IonItem,
@@ -63,8 +60,6 @@ interface HabitCompletion {
     IonCardContent,
     IonItemGroup,
     IonItemDivider,
-    IonFab,
-    IonFabButton,
     DatePipe
   ]
 })
