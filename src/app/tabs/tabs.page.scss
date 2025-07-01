@@ -1,12 +1,14 @@
 ion-tab-bar {
-  --background: #292727;
-  --color: #8c8c8c;
-  --color-selected: #3880ff;
+  --background: #111111; /* Fondo oscuro para mejor contraste */
+  --color: #a0a0a0; /* Color de texto no seleccionado */
+  --color-selected: #39ff14; /* Verde neón para pestaña seleccionada */
   --padding-top: 8px;
   --padding-bottom: 12px;
+  --ripple-color: transparent; /* Elimina el efecto de ripple */
+  --border: none; /* Elimina cualquier borde */
   height: 60px;
-  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.08);
-  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  border-top: 1px solid rgba(57, 255, 20, 0.3); /* Borde superior con tono del verde neón */
+  box-shadow: 0 -2px 10px rgba(57, 255, 20, 0.2); /* Sombra con tono del verde neón */
 }
 
 ion-tab-button {
@@ -14,17 +16,40 @@ ion-tab-button {
   --padding-end: 0;
   --padding-top: 0;
   --padding-bottom: 0;
+  transition: all 0.2s ease-in-out;
 
   ion-icon {
     font-size: 24px;
     margin-bottom: 4px;
+    transition: all 0.2s ease-in-out;
+  }
+
+  ion-label {
+    font-size: 12px;
+    font-weight: 500;
+    margin-top: 4px;
   }
 }
 
 ion-tab-button.tab-selected {
+  --color: #39ff14; /* Verde neón para el ícono y texto seleccionado */
+  
   ion-icon {
-    transform: scale(1.1);
-    transition: transform 0.2s ease-in-out;
+    transform: scale(1.2);
+    filter: drop-shadow(0 0 5px rgba(57, 255, 20, 0.7)); /* Efecto de brillo para el ícono seleccionado */
+  }
+  
+  ion-label {
+    font-weight: 600;
+  }
+}
+
+/* Efecto de brillo al pasar el ratón */
+ion-tab-button:hover {
+  --color: #ffffff;
+  
+  ion-icon {
+    filter: drop-shadow(0 0 3px rgba(57, 255, 20, 0.5));
   }
 }
 
