@@ -31,7 +31,7 @@ Puedes agregar, editar o eliminar hábitos según tus necesidades.
 
 1. Clona el repositorio:
    ```bash
-   git clone [URL_DEL_REPOSITORIO]
+   git clone https://github.com/matiasstanghelini/tp-mobile
    cd tp-mobile
    ```
 
