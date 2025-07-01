@@ -20,11 +20,8 @@ import {
   IonItemSliding,
   IonItemOptions,
   IonItemOption,
-  IonFab,
-  IonFabButton,
   IonIcon,
   IonDatetime,
-  ModalController,
   ToastController,
   AlertController
 } from '@ionic/angular/standalone';
@@ -59,12 +56,9 @@ interface Habit {
     IonCardHeader,
     IonCardTitle,
     IonCardContent,
-    IonListHeader,
     IonItemSliding,
     IonItemOptions,
     IonItemOption,
-    IonFab,
-    IonFabButton,
     IonIcon,
     IonDatetime
   ]
@@ -88,12 +82,66 @@ export class HabitsPage implements OnInit {
     await this.loadHabits();
   }
 
+  // Default habits that will be shown if no habits exist in storage
+  private defaultHabits: Habit[] = [
+    {
+      id: '1',
+      name: 'Beber agua',
+      reminderTime: '09:00',
+      createdAt: new Date()
+    },
+    {
+      id: '2',
+      name: 'Hacer ejercicio',
+      reminderTime: '18:00',
+      createdAt: new Date()
+    },
+    {
+      id: '3',
+      name: 'Leer 20 minutos',
+      reminderTime: '21:00',
+      createdAt: new Date()
+    }
+  ];
+
   async loadHabits() {
     const { value } = await Preferences.get({ key: 'habits' });
-    this.habits = value ? JSON.parse(value) : [];
+    
+    if (value) {
+      // If there are stored habits, merge them with default habits
+      const storedHabits: Habit[] = JSON.parse(value);
+      // Create a map of stored habits by ID for easy lookup
+      const storedHabitsMap = new Map(storedHabits.map(habit => [habit.id, habit]));
+      
+      // Merge default habits with stored habits, being careful with undefined values
+      this.habits = [
+        ...this.defaultHabits.map(habit => {
+          const storedHabit = storedHabitsMap.get(habit.id);
+          // Only merge properties that are not undefined in the stored habit
+          return storedHabit ? {
+            ...habit,
+            name: storedHabit.name || habit.name,
+            reminderTime: storedHabit.reminderTime !== undefined ? storedHabit.reminderTime : habit.reminderTime,
+            createdAt: storedHabit.createdAt ? new Date(storedHabit.createdAt) : habit.createdAt
+          } : habit;
+        }),
+        // Add any stored habits that aren't in the default list
+        ...storedHabits.filter(habit => 
+          !this.defaultHabits.some(dh => dh.id === habit.id)
+        )
+      ];
+      
+      // Save the merged list back to storage
+      await this.saveHabits();
+    } else {
+      // If no habits in storage, use default habits
+      this.habits = [...this.defaultHabits];
+      await this.saveHabits(); // Save default habits to storage
+    }
   }
 
   async saveHabits() {
+    // Save all habits, including default ones
     await Preferences.set({
       key: 'habits',
       value: JSON.stringify(this.habits)
@@ -165,6 +213,23 @@ export class HabitsPage implements OnInit {
   scrollToTop() {
     const content = document.querySelector('ion-content');
     content?.scrollToTop(500);
+  }
+
+  formatReminderTime(timeString: string): string {
+    if (!timeString) return '';
+    
+    // If it's already in HH:MM format, just return it
+    if (/^\d{1,2}:\d{2}$/.test(timeString)) {
+      return timeString;
+    }
+    
+    // If it's a full date string, extract just the time
+    const date = new Date(timeString);
+    if (!isNaN(date.getTime())) {
+      return date.toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit', hour12: false });
+    }
+    
+    return timeString; // Return as is if we can't parse it
   }
 
   private async scheduleNotification(habit: Habit) {
