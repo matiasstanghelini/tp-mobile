@@ -41,7 +41,6 @@ interface Habit {
 @Component({
   selector: 'app-habits',
   templateUrl: './habits.page.html',
-  styleUrls: ['./habits.page.scss'],
   standalone: true,
   imports: [
     CommonModule, 

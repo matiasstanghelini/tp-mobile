@@ -21,7 +21,6 @@ Chart.register(...registerables);
 @Component({
   selector: 'app-stats',
   templateUrl: './stats.page.html',
-  styleUrls: ['./stats.page.scss'],
   standalone: true,
   imports: [
     CommonModule, 
@@ -47,7 +46,7 @@ export class StatsPage {
     datasets: [
       { 
         data: [75, 25], // Valores de ejemplo: 75% completados, 25% pendientes
-        backgroundColor: ['#4CAF50', '#2196F3'], // Verde para completados, azul para pendientes
+        backgroundColor: ['#39ff14', '#2196F3'], // Verde neón para completados (mismo que HABITS), azul para pendientes
         hoverBackgroundColor: ['#45a049', '#1976D2'], // Verde y azul más oscuros al pasar el ratón
         borderWidth: 0
       }

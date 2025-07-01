@@ -21,9 +21,6 @@ import {
   IonItemDivider,
   IonFab,
   IonFabButton,
-  IonItemSliding,
-  IonItemOptions,
-  IonItemOption,
   ToastController
 } from '@ionic/angular/standalone';
 // Los íconos se importan directamente en el template
@@ -45,7 +42,6 @@ interface HabitCompletion {
 @Component({
   selector: 'app-today',
   templateUrl: './today.page.html',
-  styleUrls: ['./today.page.scss'],
   standalone: true,
   imports: [
     CommonModule, 
